@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aab-e-Kaar — Clean Water for All</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep:   #0A2540;
+    --blue-mid:    #0E6BA8;
+    --blue-bright: #29ABE2;
+    --blue-light:  #C8EAFB;
+    --blue-pale:   #EAF6FD;
+    --teal:        #00B4A6;
+    --teal-light:  #B2EBE7;
+    --sand:        #F5F0E8;
+    --sand-dark:   #D9C9A3;
+    --white:       #FFFFFF;
+    --text:        #0D1B2A;
+    --muted:       #5A7184;
+    --wave-1:      rgba(41,171,226,0.18);
+    --wave-2:      rgba(14,107,168,0.12);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--blue-pale);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATED WATER BG ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, var(--wave-1) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, var(--wave-2) 0%, transparent 55%),
+      var(--blue-pale);
+    animation: waterShift 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes waterShift {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3.5rem;
+    background: rgba(10,37,64,0.94);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(41,171,226,0.15);
+  }
+
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+
+  .nav-droplet {
+    width: 34px; height: 34px;
+    background: var(--blue-bright);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform: rotate(-30deg);
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .nav-brand-text {
+    display: flex; flex-direction: column; line-height: 1.1;
+  }
+
+  .nav-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-brand-sub {
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: var(--blue-bright);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; gap: 0.3rem; list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    border-radius: 2rem;
+    transition: all 0.2s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--white);
+    background: rgba(41,171,226,0.2);
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; min-height: 100vh; padding-top: 70px; }
+  .page.active { display: block; }
+
+  /* ════════════════════════
+     HOME
+  ════════════════════════ */
+
+  /* Hero */
+  .hero {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-ripple {
+    position: absolute;
+    right: -8vw; top: 50%;
+    transform: translateY(-50%);
+    width: 55vw; height: 55vw;
+    border-radius: 50%;
+    border: 1.5px solid rgba(41,171,226,0.25);
+    animation: ripple 6s ease-out infinite;
+    pointer-events: none;
+  }
+
+  .hero-ripple::before,
+  .hero-ripple::after {
+    content: '';
+    position: absolute;
+    inset: -25%;
+    border-radius: 50%;
+    border: 1px solid rgba(41,171,226,0.12);
+    animation: ripple 6s ease-out 1.5s infinite;
+  }
+
+  .hero-ripple::after {
+    inset: -55%;
+    animation-delay: 3s;
+  }
+
+  @keyframes ripple {
+    0%   { opacity: 1; transform: scale(0.85); }
+    100% { opacity: 0; transform: scale(1.15); }
+  }
+
+  .sdg-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(41,171,226,0.12);
+    border: 1px solid rgba(41,171,226,0.3);
+    color: var(--blue-bright);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+    width: fit-content;
+  }
+
+  .sdg-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--blue-bright);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 6vw, 6rem);
+    font-weight: 700;
+    line-height: 1.0;
+    color: var(--blue-deep);
+    max-width: 700px;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blue-mid);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.8rem;
+    font-weight: 300;
+  }
+
+  .hero-sub strong { color: var(--blue-mid); font-weight: 600; }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--blue-mid);
+    color: var(--white);
+    border: none;
+    padding: 0.9rem 2.2rem;
+    border-radius: 0.4rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--blue-deep); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--blue-mid);
+    border: 1.5px solid var(--blue-mid);
+    padding: 0.9rem 2.2rem;
+    border-radius: 0.4rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--blue-mid); color: var(--white); }
+
+  /* Stats strip */
+  .stats-strip {
+    display: flex; gap: 0;
+    background: var(--blue-deep);
+    overflow: hidden;
+  }
+
+  .stat-block {
+    flex: 1;
+    padding: 2.2rem 2rem;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-block:last-child { border-right: none; }
+
+  .stat-block::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--blue-bright);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .stat-block:hover::after { transform: scaleX(1); }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--blue-bright);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  /* Mission */
+  .mission {
+    padding: 6rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+    background: var(--white);
+    position: relative;
+  }
+
+  .mission::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--blue-bright), var(--teal));
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    margin-bottom: 1rem;
+  }
+
+  .mission h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--blue-deep);
+    line-height: 1.15;
+    margin-bottom: 1.4rem;
+  }
+
+  .mission p {
+    line-height: 1.85;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .collab-badge {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--blue-pale);
+    border: 1px solid var(--blue-light);
+    border-radius: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  .collab-badge .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+
+  .collab-badge span {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--blue-deep);
+  }
+
+  .focus-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .focus-card {
+    background: var(--blue-pale);
+    border: 1px solid var(--blue-light);
+    border-radius: 0.65rem;
+    padding: 1.4rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .focus-card:hover {
+    border-color: var(--blue-bright);
+    transform: translateY(-3px);
+  }
+
+  .focus-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+
+  .focus-card h4 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--blue-deep);
+    margin-bottom: 0.4rem;
+  }
+
+  .focus-card p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ════════════════════════
+     GALLERY
+  ════════════════════════ */
+  .gallery-hero {
+    padding: 4.5rem 4rem 2rem;
+    text-align: center;
+  }
+
+  .gallery-hero h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 0.6rem;
+  }
+
+  .wave-line {
+    display: flex; justify-content: center; gap: 5px;
+    margin: 1.2rem 0;
+  }
+
+  .wave-line span {
+    display: block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue-bright);
+    animation: waveDot 1.4s ease-in-out infinite;
+  }
+
+  .wave-line span:nth-child(2) { animation-delay: 0.15s; background: var(--blue-mid); }
+  .wave-line span:nth-child(3) { animation-delay: 0.3s; }
+  .wave-line span:nth-child(4) { animation-delay: 0.45s; background: var(--teal); }
+  .wave-line span:nth-child(5) { animation-delay: 0.6s; }
+
+  @keyframes waveDot {
+    0%, 100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(-8px); opacity: 1; }
+  }
+
+  .gallery-hero p {
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* Upload zone */
+  .upload-zone {
+    margin: 1.5rem 4rem;
+    border: 2px dashed rgba(41,171,226,0.4);
+    border-radius: 0.8rem;
+    padding: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.25s, background 0.25s;
+    background: rgba(41,171,226,0.03);
+  }
+
+  .upload-zone:hover {
+    border-color: var(--blue-mid);
+    background: rgba(41,171,226,0.07);
+  }
+
+  .upload-zone .upload-icon { font-size: 2.2rem; display: block; margin-bottom: 0.6rem; }
+  .upload-zone p { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .upload-zone input[type="file"] { display: none; }
+
+  /* Gallery grid */
+  .gallery-grid {
+    padding: 1.5rem 4rem 5rem;
+    columns: 3;
+    column-gap: 1.2rem;
+  }
+
+  .g-item {
+    break-inside: avoid;
+    margin-bottom: 1.2rem;
+    border-radius: 0.6rem;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid rgba(41,171,226,0.12);
+  }
+
+  .g-item img {
+    width: 100%; display: block;
+    transition: transform 0.45s ease, filter 0.35s ease;
+    filter: saturate(0.88) brightness(0.97);
+  }
+
+  .g-item:hover img {
+    transform: scale(1.05);
+    filter: saturate(1.1) brightness(1.0);
+  }
+
+  .g-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 2rem 1rem 0.8rem;
+    background: linear-gradient(to top, rgba(10,37,64,0.88), transparent);
+    color: var(--white);
+    font-size: 0.82rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+  }
+
+  .g-item:hover .g-caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ════════════════════════
+     DONATE
+  ════════════════════════ */
+  .donate-hero {
+    background: var(--blue-deep);
+    padding: 4.5rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .donate-hero::before {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 50%;
+    transform: translateX(-50%);
+    width: 200%;
+    height: 80px;
+    background: var(--blue-pale);
+    border-radius: 50% 50% 0 0;
+  }
+
+  .donate-hero h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--blue-light);
+    margin-bottom: 0.7rem;
+  }
+
+  .donate-hero p {
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.75;
+    font-weight: 300;
+    font-size: 0.98rem;
+  }
+
+  .donate-body {
+    padding: 5rem 4rem 4rem;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .donate-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--blue-deep);
+    margin-bottom: 1.8rem;
+    text-align: center;
+  }
+
+  .accounts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .acc-card {
+    background: var(--white);
+    border: 1px solid rgba(41,171,226,0.2);
+    border-radius: 0.8rem;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.2s;
+  }
+
+  .acc-card:hover {
+    box-shadow: 0 8px 32px rgba(14,107,168,0.13);
+    transform: translateY(-2px);
+  }
+
+  .acc-card-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--blue-bright), var(--teal));
+  }
+
+  .acc-logo {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .acc-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 0.2rem;
+  }
+
+  .acc-bank {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.4rem;
+  }
+
+  .acc-field { margin-bottom: 0.85rem; }
+
+  .acc-field label {
+    display: block;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .acc-value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--blue-pale);
+    border: 1px solid var(--blue-light);
+    border-radius: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--blue-deep);
+    gap: 0.5rem;
+  }
+
+  .copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.72rem;
+    color: var(--blue-mid);
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: var(--blue-light); }
+
+  .donate-note {
+    background: var(--blue-deep);
+    color: var(--white);
+    border-radius: 0.8rem;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .donate-note p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .donate-note strong { color: var(--blue-bright); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blue-deep);
+    border-top: 1px solid rgba(41,171,226,0.15);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.03em;
+  }
+
+  footer strong { color: var(--blue-bright); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--blue-mid);
+    color: var(--white);
+    padding: 0.65rem 1.3rem;
+    border-radius: 0.4rem;
+    font-size: 0.84rem;
+    font-weight: 500;
+    z-index: 999;
+    animation: slideUp 0.25s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0.85rem 1.2rem; }
+    .nav-links a { padding: 0.35rem 0.65rem; font-size: 0.72rem; }
+    .hero { padding: 3rem 1.5rem 2rem; }
+    .hero h1 { font-size: 2.8rem; }
+    .stats-strip { flex-direction: column; }
+    .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .mission { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2.5rem; }
+    .focus-cards { grid-template-columns: 1fr; }
+    .gallery-hero { padding: 3rem 1.5rem 1.5rem; }
+    .upload-zone { margin: 1rem 1.5rem; }
+    .gallery-grid { columns: 2; padding: 1rem 1.5rem 3rem; }
+    .donate-hero { padding: 3rem 1.5rem; }
+    .donate-body { padding: 3rem 1.5rem; }
+    .accounts-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-droplet"></div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-name">Aab-e-Kaar</span>
+      <span class="nav-brand-sub">Clean Water Initiative</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="showPage('home',this);return false;">Home</a></li>
+    <li><a href="#" onclick="showPage('gallery',this);return false;">Gallery</a></li>
+    <li><a href="#" onclick="showPage('donate',this);return false;">Donate</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════
+     HOME
+══════════════════ -->
+<section id="home" class="page active">
+
+  <div class="hero">
+    <div class="hero-ripple"></div>
+
+    <span class="sdg-tag">
+      <span class="sdg-dot"></span>
+      UN SDG Goal 6 — Clean Water & Sanitation
+    </span>
+
+    <h1>
+      <em>Clean Water</em><br>
+      is a Right,<br>Not a Privilege.
+    </h1>
+
+    <p class="hero-sub">
+      <strong>Kaar-e-Kamal</strong> is working to ensure every community has access to safe, clean, and affordable drinking water — because life begins with water.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="navTo('donate')">Support Our Cause</button>
+      <button class="btn-ghost" onclick="navTo('gallery')">See Our Work</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-strip">
+    <div class="stat-block">
+      <span class="stat-num">2.2B</span>
+      <span class="stat-label">People lack safe drinking water</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">3.5M</span>
+      <span class="stat-label">Die from water-related diseases yearly</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">785M</span>
+      <span class="stat-label">Without basic water access</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">2030</span>
+      <span class="stat-label">SDG 6 Target Year</span>
+    </div>
+  </div>
+
+  <!-- Mission -->
+  <div class="mission">
+    <div>
+      <div class="section-label">About Our Initiative</div>
+      <h2>Why Clean Water Changes Everything</h2>
+      <p>Access to clean water is the foundation of health, education, and economic development. Without it, communities face preventable disease, children miss school, and families — especially women — spend hours each day collecting water.</p>
+      <p>Our partnership with <strong>Kaar-e-Kamal</strong> channels resources directly to underserved communities, funding water filtration systems, wells, and sanitation infrastructure.</p>
+      <div class="collab-badge">
+        <span class="dot"></span>
+        <span>In collaboration with Kaar-e-Kamal Foundation</span>
+      </div>
+    </div>
+
+    <div class="focus-cards">
+      <div class="focus-card">
+        <span class="focus-icon">💧</span>
+        <h4>Clean Water Access</h4>
+        <p>Installing filtration systems and community water points in areas with contaminated sources.</p>
+      </div>
+      <div class="focus-card">
+        <span class="focus-icon">🏗️</span>
+        <h4>Infrastructure</h4>
+        <p>Building wells, hand pumps, and pipelines for villages with no water infrastructure.</p>
+      </div>
+      <div class="focus-card">
+        <span class="focus-icon">🧼</span>
+        <h4>Sanitation & Hygiene</h4>
+        <p>Promoting hygiene education and building sanitation facilities in schools and homes.</p>
+      </div>
+      <div class="focus-card">
+        <span class="focus-icon">🌱</span>
+        <h4>Sustainability</h4>
+        <p>Training local communities to maintain and manage water systems long-term.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════
+     GALLERY
+══════════════════ -->
+<section id="gallery" class="page">
+
+  <div class="gallery-hero">
+    <div class="section-label">Aab-e-kaar in Action</div>
+    <h2>Our Work in the Field</h2>
+    <div class="wave-line">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <p>Photos from our clean water projects — from the first drop flowing through a new pump to smiling communities who now have safe water at their doorstep.</p>
+  </div>
+
+  
+  <div class="gallery-grid" id="gallery-grid">
+    <div class="g-item">
+      <img src="../picsss/111.jpeg" alt="Clean water flowing">
+      <div class="g-caption">Kaar-e-Kamal Clean Water Movement- During heat wave</div>
+    </div>
+    <div class="g-item">
+      <img src="../picsss/uuuu.jpeg" alt="Water distribution">
+      <div class="g-caption">Awareness Campaign </div>
+    </div>
+    <div class="g-item">
+      <img src="../picsss/fffffffff.jpeg" alt="Water pump installation">
+      <div class="g-caption">PU Filtration Plant</div>
+    </div>
+    <div class="g-item">
+      <img src="../picsss/121212.jpeg" alt="Children with water">
+      <div class="g-caption">Awareness Flyer distribution</div>
+    </div>
+    <div class="g-item">
+      <img src="../picsss/ssssssssss.jpeg" alt="Team volunteering">
+      <div class="g-caption">Survey </div>
+    </div>
+    <div class="g-item">
+      <img src="../picsss/shsshhshshsh.jpeg" alt="Water filtration">
+      <div class="g-caption"> - </div>
+    </div>
+  </div>
+  
+
+</section>
+
+<!-- ══════════════════
+     DONATE
+══════════════════ -->
+<section id="donate" class="page">
+
+  <div class="donate-hero">
+    <div class="section-label" style="color: var(--blue-bright);">Make a Difference Today</div>
+    <h2>Fund Clean Water Access</h2>
+    <p>Every donation builds a well, installs a filter, or trains a community. Your support through Kaar-e-Kamal brings clean water to those who need it most.</p>
+  </div>
+
+  <div class="donate-body">
+    <h3>Donation Account Details</h3>
+
+    <div class="accounts-grid">
+
+      <!-- Account 1 -->
+      <div class="acc-card">
+        <div class="acc-card-bar"></div>
+        <div class="acc-logo" style="background:#DCF0FB; color:#0E6BA8;">EP</div>
+        <div class="acc-title">Kaar-e-Kamal Fund</div>
+        <div class="acc-bank">EasyPaisa / JazzCash</div>
+        <div class="acc-field">
+          <label>Account Title</label>
+          <div class="acc-value">Kaar-e-Kamal Foundation <button class="copy-btn" onclick="copyText('Kaar-e-Kamal Foundation')">Copy</button></div>
+        </div>
+        <div class="acc-field">
+          <label>Mobile Account</label>
+          <div class="acc-value">0300-0000000 <button class="copy-btn" onclick="copyText('03000000000')">Copy</button></div>
+        </div>
+      </div>
+
+      <!-- Account 2 -->
+      <div class="acc-card">
+        <div class="acc-card-bar"></div>
+        <div class="acc-logo" style="background:#E0F5F3; color:#00796B;">HB</div>
+        <div class="acc-title">Water Project Fund</div>
+        <div class="acc-bank">HBL — Habib Bank Limited</div>
+        <div class="acc-field">
+          <label>Account Title</label>
+          <div class="acc-value">Kaar-e-Kamal Trust <button class="copy-btn" onclick="copyText('Kaar-e-Kamal Trust')">Copy</button></div>
+        </div>
+        <div class="acc-field">
+          <label>Account Number</label>
+          <div class="acc-value">0123-4567891-01 <button class="copy-btn" onclick="copyText('01234567891')">Copy</button></div>
+        </div>
+        <div class="acc-field">
+          <label>IBAN</label>
+          <div class="acc-value" style="font-size:0.8rem;">PK70HABB0000012345678 <button class="copy-btn" onclick="copyText('PK70HABB0000012345678')">Copy</button></div>
+        </div>
+      </div>
+
+      <!-- Account 3 -->
+      <div class="acc-card">
+        <div class="acc-card-bar"></div>
+        <div class="acc-logo" style="background:#EDE7F6; color:#5E35B1;">UB</div>
+        <div class="acc-title">Student Campaign</div>
+        <div class="acc-bank">UBL — United Bank Limited</div>
+        <div class="acc-field">
+          <label>Account Title</label>
+          <div class="acc-value">Clean Water SDG Team <button class="copy-btn" onclick="copyText('Clean Water SDG Team')">Copy</button></div>
+        </div>
+        <div class="acc-field">
+          <label>Account Number</label>
+          <div class="acc-value">9876543210001 <button class="copy-btn" onclick="copyText('9876543210001')">Copy</button></div>
+        </div>
+        <div class="acc-field">
+          <label>Branch Code</label>
+          <div class="acc-value">0571 <button class="copy-btn" onclick="copyText('0571')">Copy</button></div>
+        </div>
+      </div>
+
+      <!-- Account 4 -->
+      <div class="acc-card">
+        <div class="acc-card-bar"></div>
+        <div class="acc-logo" style="background:#FFF8E1; color:#F57F17;">MZ</div>
+        <div class="acc-title">International Donations</div>
+        <div class="acc-bank">Meezan Bank — Islamic Banking</div>
+        <div class="acc-field">
+          <label>Account Title</label>
+          <div class="acc-value">Kaar-e-Kamal Global <button class="copy-btn" onclick="copyText('Kaar-e-Kamal Global')">Copy</button></div>
+        </div>
+        <div class="acc-field">
+          <label>IBAN</label>
+          <div class="acc-value" style="font-size:0.8rem;">PK29MEZN0001780100012 <button class="copy-btn" onclick="copyText('PK29MEZN0001780100012')">Copy</button></div>
+        </div>
+        <div class="acc-field">
+          <label>Swift Code</label>
+          <div class="acc-value">MEZNPKKA <button class="copy-btn" onclick="copyText('MEZNPKKA')">Copy</button></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="donate-note">
+      <p>
+        After donating, please send your transaction receipt to our WhatsApp or email so we can confirm and acknowledge your contribution.<br><br>
+        <strong>Your donation directly funds water pumps, filters, and sanitation for communities in need. Thank you for standing with Kaar-e-Kamal.</strong>
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 <strong>Kaar-e-Kamal</strong> — Clean Water Initiative &nbsp;|&nbsp; United Nations SDG 6: Clean Water & Sanitation &nbsp;|&nbsp; Every drop counts 💧</p>
+</footer>
+
+<script>
+  function showPage(id, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if (el && el.classList) el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function navTo(id) {
+    const links = document.querySelectorAll('.nav-links a');
+    const map = { home: 0, gallery: 1, donate: 2 };
+    showPage(id, links[map[id]]);
+  }
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function() {
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = '✓ Copied to clipboard';
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 2200);
+    });
+  }
+
+  function handleUpload(event) {
+    const files = Array.from(event.target.files);
+    const grid = document.getElementById('gallery-grid');
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const item = document.createElement('div');
+        item.className = 'g-item';
+        const name = file.name.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+        item.innerHTML = `
+          <img src="${e.target.result}" alt="${name}">
+          <div class="g-caption">${name}</div>
+        `;
+        grid.prepend(item);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+</script>
+</body>
+</html>
